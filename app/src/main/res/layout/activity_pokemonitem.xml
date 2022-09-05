@@ -31,6 +31,7 @@
             android:text="#1"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:id = "@+id/tvNumber"
             />
         <TextView
             android:layout_width="match_parent"
@@ -38,6 +39,7 @@
             android:text="Bulbasaur"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:id = "@+id/tvName"
             />
     </LinearLayout>
 

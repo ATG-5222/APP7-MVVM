@@ -3,6 +3,7 @@ package com.example.app7_mvvm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app7_mvvm.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
     private lateinit var pkmnList:List<PokemonData>
+    private lateinit var adapter:PokemonListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,12 @@ class MainActivity : AppCompatActivity() {
 
         searchPokemonList()
 
+    }
+
+    private fun InitializaList(){
+        adapter = PokemonListAdapter(pkmnList)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
     }
 
     private fun getRetrofit(): Retrofit {
@@ -39,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 //show Recyclerview
                 Log.d("Salida",pokemonList!!.results.size.toString())
                 pkmnList = pokemonList.results
+                CoroutineScope(Dispatchers.Main).launch {InitializaList()}
             }else{
                 //show error
             }
